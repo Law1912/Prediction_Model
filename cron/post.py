@@ -4,7 +4,7 @@ import json
 import pandas as pd
 
 # API URL (adjust if hosted on a different domain)
-API_URL = "http://localhost:4000/api/crypto-prediction"
+API_URL = "https://coolfi-ai.vercel.app/api/crypto-prediction"
 
 # Fetch token from environment variables
 AUTH_TOKEN = os.getenv("AUTH_TOKEN")

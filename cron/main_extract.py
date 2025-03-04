@@ -6,13 +6,23 @@ import sys
 from datetime import datetime
 
 # Get the arguments
-today = sys.argv[1]  # Format: YYYY-MM-DD
+today = datetime.today().strftime("%Y-%m-%d")  # Format: YYYY-MM-DD
 lastScrape = sys.argv[2]  # Format: YYYY-MM-DD
 
 # Define paths and coins
 DATA_DIR = "./tweet_data/"
 OUTPUT_CSV = "merged_tweets.csv"
 COINS = ["ETH", "BITCOIN", "SOLANA", "PEPE", "DOGE", "MAGA", "NEAR", "XRP"]
+
+if os.path.exists(OUTPUT_CSV):
+    existing_df_tweets = pd.read_csv(OUTPUT_CSV)
+    existing_df_tweets = existing_df_tweets.dropna()
+    if not existing_df_tweets.empty:
+        lastScrape = existing_df_tweets["Date"].max()
+    else:
+        lastScrape = "2024-05-21"  # Default start if empty
+else:
+    lastScrape = "2024-05-21"
 
 # Convert dates to datetime objects
 today_dt = datetime.strptime(today, "%Y-%m-%d")
@@ -89,14 +99,24 @@ else:
 
 
 # Get the arguments
-today = sys.argv[1]  # Format: YYYY-MM-DD
-lastScrape = sys.argv[2]  # Format: YYYY-MM-DD
+today = datetime.today().strftime("%Y-%m-%d")
+lastScrape = sys.argv[2]
 
-OUTPUT_CSV = "crypto_data1.csv"
+OUTPUT_CSV = "crypto_data.csv"
 COINS = ["ethereum", "bitcoin", "solana", "pepe", "dogecoin", "maga", "near", "ripple"]
 
 API_URL = "https://api.coingecko.com/api/v3/coins/{coin}/market_chart/range"
 RATE_LIMIT_DELAY = 2  # Seconds to wait between API calls
+
+if os.path.exists(OUTPUT_CSV):
+    existing_df_crypto = pd.read_csv(OUTPUT_CSV)
+    existing_df_crypto = existing_df_crypto.dropna()
+    if not existing_df_crypto.empty:
+        lastScrape = existing_df_crypto["date"].max()
+    else:
+        lastScrape = "2024-05-21"
+else:
+    lastScrape = "2024-05-21"
 
 # Convert input dates to timestamps
 start_ts = int(datetime.strptime(lastScrape, "%Y-%m-%d").timestamp())

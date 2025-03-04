@@ -5,9 +5,21 @@ from torch.utils.data import DataLoader, Dataset
 from tqdm import tqdm
 import os
 import sys
+import datetime
 
-today = sys.argv[1]
+# today = datetime.today().strftime("%Y-%m-%d")
 lastScrape = sys.argv[2]
+
+INPUT_FILE = 'merged_tweets.csv'
+OUTPUT_FILE = 'tweets_with_all_features.csv'
+
+# Load dataset
+start_index = 0
+if os.path.exists(OUTPUT_FILE):
+    existing_df = pd.read_csv(OUTPUT_FILE)
+    lastScrape = len(existing_df)
+else :
+    lastScrape = 0
 
 
 # Load dataset

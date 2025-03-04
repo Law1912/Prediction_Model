@@ -102,7 +102,7 @@ async function scrapeTweets() {
     console.log("✅ Session cookies saved in memory.");
   }
 
-  const lastScrapedDate = getLastScrapedDate();
+  const lastScrapedDate = getLastScrapedDate() || new Date("2024-05-21");
   const startDate = new Date(lastScrapedDate);
 
   const today = new Date();
