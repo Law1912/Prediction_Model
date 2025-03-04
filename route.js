@@ -129,7 +129,7 @@ async function scrapeTweets() {
     // Move to the next day
     startDate.setDate(startDate.getDate() + 1);
   }
-  return { today, lastScrapedDate };
+  return { today: today.toISOString().split("T")[0], lastScrapedDate: lastScrapedDate.toISOString().split("T")[0] };
 }
 
 function saveToExcel(allTweets, dateString) {
